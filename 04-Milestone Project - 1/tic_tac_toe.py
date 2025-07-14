@@ -14,9 +14,8 @@ def player_input():
   choice = 'wrong'
   acceptable_values = ['X', 'O']
   while choice not in acceptable_values:
+    print('Invalid choice!')
     choice = input('Player 1: Do you want to be X or O? ')
-    if choice not in acceptable_values:
-      print('Invalid choice!')
   
   if choice == 'X':
     print('Player 1, you will go first!')
