@@ -8,5 +8,5 @@ one.func()
 
 if __name__ == '__main__':
         print("TWO.PY is being run directly!")
-    else:
-        print("TWO.PY is being imported into another module!")
+else:
+    print("TWO.PY is being imported into another module!")
