@@ -22,3 +22,4 @@ if __name__ == '__main__':
     # RUN THE SCRIPT!
     function2()
     function()
+    func()
