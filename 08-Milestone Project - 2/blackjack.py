@@ -110,6 +110,10 @@ def take_bet(player_chips):
             bet_amount = int(input("How much would you like to bet? "))
         except ValueError:
             print("That's not a valid bet!")
+            continue
+        except:
+            print("An unexpected error occurred.")
+            continue
         else:
             if bet_amount > player_chips.total:
                 print(
@@ -118,42 +122,52 @@ def take_bet(player_chips):
             elif bet_amount <= 0:
                 print("Bet must be greater than 0!")
             else:
-                player_chips.bet = int(bet_amount)
+                player_chips.bet = bet_amount
                 print(f"You have bet {player_chips.bet} chips.")
                 break
 
 
 def hit(deck, hand):
     # Either player can take hits until they bust. This function will be called during gameplay anytime a Player requests a hit, or a Dealer's hand is less than 17. It should take in Deck and Hand objects as arguments, and deal one card off the deck and add it to the Hand. You may want it to check for aces in the event that a player's hand exceeds 21.
+
+    hand.add_card(deck.deal())
+
+
+def hit_or_stand(deck, hand):
+    # This function should accept the deck and the player's hand as arguments, and assign playing as a global variable.<br> If the Player Hits, employ the hit() function above. If the Player Stands, set the playing variable to False - this will control the behavior of a <code>while</code> loop later on in our code.
+    global playing  # to control an upcoming while loop
+
     pass
 
-def hit_or_stand(deck,hand):
-    global playing  # to control an upcoming while loop
-    
-    pass
 
 # Show cards
-def show_some(player,dealer):
-    
+def show_some(player, dealer):
+
     pass
-    
-def show_all(player,dealer):
-    
+
+
+def show_all(player, dealer):
+
     pass
+
 
 # End of game
 def player_busts():
     pass
 
+
 def player_wins():
     pass
 
+
 def dealer_busts():
     pass
-    
+
+
 def dealer_wins():
     pass
-    
+
+
 def push():
     pass
 
