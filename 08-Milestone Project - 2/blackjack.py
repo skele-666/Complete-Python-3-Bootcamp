@@ -1,7 +1,7 @@
 # IMPORTS AND GLOBAL VARIABLES
 import random
 
-suits = suits = ("Hearts", "Diamonds", "Spades", "Clubs")
+suits = ("Hearts", "Diamonds", "Spades", "Clubs")
 ranks = (
     "Two",
     "Three",
@@ -34,7 +34,6 @@ values = {
 }
 
 playing = True
-
 
 # CLASS DEFINITIONS
 class Card:
@@ -77,7 +76,7 @@ class Hand:
         self.adjust_for_ace()
 
     def adjust_for_ace(self):
-        # If total value > 21 nd you have aces, subtract 10
+        # If total value > 21 and you have aces, subtract 10
         while self.value > 21 and self.aces:
             self.value -= 10
             self.aces -= 1
@@ -86,9 +85,7 @@ class Hand:
 class Chips:
 
     def __init__(self):
-        self.total = (
-            100  # This can be set to a default value or supplied by a user input
-        )
+        self.total = 100
         self.bet = 0
 
     def win_bet(self):
@@ -100,7 +97,7 @@ class Chips:
 
 # FUNCTIONS
 def take_bet(player_chips):
-    # take bet from user with input using player_chips.total and player_chips.bet
+    # Take bet from user with input using player_chips.total and player_chips.bet
     # Use try/except statements to validate betting
 
     print(f"You have {player_chips.total} chips.")
@@ -136,6 +133,19 @@ def hit(deck, hand):
 def hit_or_stand(deck, hand):
     # This function should accept the deck and the player's hand as arguments, and assign playing as a global variable.<br> If the Player Hits, employ the hit() function above. If the Player Stands, set the playing variable to False - this will control the behavior of a <code>while</code> loop later on in our code.
     global playing  # to control an upcoming while loop
+
+    while True:
+        choice = input("Hit or stand? (h/s): ")
+        if (choice.lower() == "h"):
+            hit(deck, hand)
+            break
+        elif choice.lower() == "s":
+            print("Player stands. Dealer's turn.")
+            playing = False
+            break
+        else:
+            print("Sorry, please try again (h/s):")
+            continue
 
     pass
 
