@@ -45,7 +45,6 @@ class Card:
     def __str__(self):
         return f"{self.rank} of {self.suit}"
 
-
 class Deck:
     def __init__(self):
         self.cards = []
@@ -59,7 +58,6 @@ class Deck:
 
     def deal(self):
         return self.cards.pop()
-
 
 class Hand:
     def __init__(self):
@@ -81,7 +79,6 @@ class Hand:
             self.value -= 10
             self.aces -= 1
 
-
 class Chips:
 
     def __init__(self):
@@ -93,7 +90,6 @@ class Chips:
 
     def lose_bet(self):
         self.total -= self.bet
-
 
 # FUNCTIONS
 def take_bet(player_chips):
@@ -123,20 +119,18 @@ def take_bet(player_chips):
                 print(f"You have bet {player_chips.bet} chips.")
                 break
 
-
 def hit(deck, hand):
-    # Either player can take hits until they bust. This function will be called during gameplay anytime a Player requests a hit, or a Dealer's hand is less than 17. It should take in Deck and Hand objects as arguments, and deal one card off the deck and add it to the Hand. You may want it to check for aces in the event that a player's hand exceeds 21.
-
+    # Either player can take hits until they bust. This function will be called during gameplay anytime a Player requests a hit, or a Dealer's hand is less than 17.
     hand.add_card(deck.deal())
-
+    hand.show_some(player, dealer)
 
 def hit_or_stand(deck, hand):
-    # This function should accept the deck and the player's hand as arguments, and assign playing as a global variable.<br> If the Player Hits, employ the hit() function above. If the Player Stands, set the playing variable to False - this will control the behavior of a <code>while</code> loop later on in our code.
-    global playing  # to control an upcoming while loop
+    # If the Player Hits, employ the hit() function above. If the Player Stands, set the playing variable to False - this will control the behavior of the while loop in the game loop
+    global playing
 
     while True:
         choice = input("Hit or stand? (h/s): ")
-        if (choice.lower() == "h"):
+        if choice.lower() == "h":
             hit(deck, hand)
             break
         elif choice.lower() == "s":
@@ -149,38 +143,40 @@ def hit_or_stand(deck, hand):
 
     pass
 
-
 # Show cards
 def show_some(player, dealer):
-
-    pass
-
+    # For when the player is deciding to hit or stand
+    print("Dealer's Hand:")
+    print("<hidden>")
+    for card in dealer.cards[1:]:
+        print(card)
+    print("\nPlayer's Hand:")
+    for card in player.cards:
+        print(card)
 
 def show_all(player, dealer):
-
-    pass
-
+    print(f"Dealer's Hand (value = {dealer.value}):")
+    for card in dealer.cards:
+        print(card)
+    print(f"\nPlayer's Hand (value = {player.value}):")
+    for card in player.cards:
+        print(card)
 
 # End of game
-def player_busts():
+def player_busts(player):
     pass
 
-
-def player_wins():
+def player_wins(player, dealer):
     pass
 
-
-def dealer_busts():
+def dealer_busts(dealer):
     pass
 
-
-def dealer_wins():
+def dealer_wins(dealer):
     pass
-
 
 def push():
     pass
-
 
 # GAME
 while True:
@@ -202,6 +198,7 @@ while True:
 
     # Prompt the Player for their bet
     take_bet(player_chips)
+    show_some(player, dealer)
 
     # Show cards (but keep one dealer card hidden)
 
@@ -225,7 +222,6 @@ while True:
         # Ask to play again
 
         break
-
 
 # TESTING
 if __name__ == "__main__":
