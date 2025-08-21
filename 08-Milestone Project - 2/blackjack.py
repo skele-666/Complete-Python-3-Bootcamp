@@ -59,6 +59,8 @@ class Deck:
         random.shuffle(self.cards)
 
     def deal(self):
+        if not self.cards:
+            raise ValueError("No more cards in the deck!")
         return self.cards.pop()
 
 
@@ -120,7 +122,7 @@ def take_bet(player_chips):
                 print("Bet must be greater than 0!")
             else:
                 player_chips.bet = bet_amount
-                print(f"You have bet {player_chips.bet} chips.")
+                print(f"You have bet {player_chips.bet} chips.\n")
                 break
 
 
@@ -134,7 +136,7 @@ def hit_or_stand(deck, hand):
     global playing
 
     while True:
-        choice = input("Hit or stand? (h/s): ")
+        choice = input("\nHit or stand? (h/s): ")
         if choice.lower() == "h":
             hit(deck, hand)
             break
@@ -145,8 +147,6 @@ def hit_or_stand(deck, hand):
         else:
             print("Sorry, please try again.")
             continue
-
-    pass
 
 
 # Show cards
@@ -162,7 +162,7 @@ def show_some(player, dealer):
 
 
 def show_all(player, dealer):
-    print(f"Dealer's Hand (value = {dealer.value}):")
+    print(f"\nDealer's Hand (value = {dealer.value}):")
     for card in dealer.cards:
         print(card)
     print(f"\nPlayer's Hand (value = {player.value}):")
@@ -206,9 +206,13 @@ def replay():
 
 
 # GAME
+print("\n" * 100)
+# Print an opening statement
+print("Welcome to Blackjack!")
+# Set up the Player's chips
+player_chips = Chips()
+
 while True:
-    # Print an opening statement
-    print("Welcome to Blackjack!")
     playing = True
 
     # Create & shuffle the deck, deal two cards to each player
@@ -220,9 +224,6 @@ while True:
     for x in range(2):
         player.add_card(deck.deal())
         dealer.add_card(deck.deal())
-
-    # Set up the Player's chips
-    player_chips = Chips()
 
     # Prompt the Player for their bet
     take_bet(player_chips)
@@ -239,6 +240,8 @@ while True:
 
         # If player's hand exceeds 21, run player_busts() and break out of loop
         if player.value > 21:
+            print(f"\nDealer's Hand (value = {dealer.value}):")
+            print(f"Player's Hand (value = {player.value}):")
             player_busts(player_chips)
             break
 
@@ -247,24 +250,30 @@ while True:
         while dealer.value < 17:
             hit(deck, dealer)
 
-            # Show all cards
-            show_all(player, dealer)
+        # Show all cards
+        show_all(player, dealer)
 
-            if dealer.value > 21:
-                dealer_busts(player_chips)
-            elif player.value > dealer.value:
-                player_wins(player_chips)
-            elif dealer.value > player.value:
-                dealer_wins(player_chips)
-            else:
-                push()
-
-        # Inform Player of their chips total
-        print(f"You have {player_chips.total} chips.")
-
-        # Ask to play again
-        if replay() == "y" or replay() == "Y":
-            continue
+        if dealer.value > 21:
+            dealer_busts(player_chips)
+        elif player.value > dealer.value:
+            player_wins(player_chips)
+        elif dealer.value > player.value:
+            dealer_wins(player_chips)
         else:
-            print("Thanks for playing!")
-            break
+            push()
+
+    # Inform Player of their chips total
+    print(f"\nYou have {player_chips.total} chips.")
+    
+    if player_chips.total <= 0:
+        print("You're out of chips! Game over.")
+        break
+
+
+    # Ask to play again
+    again = replay()
+    if again.lower() == "y":
+        continue
+    else:
+        print("Thanks for playing!")
+        break
