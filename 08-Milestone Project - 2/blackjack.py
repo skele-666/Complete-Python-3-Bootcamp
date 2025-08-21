@@ -268,22 +268,3 @@ while True:
         else:
             print("Thanks for playing!")
             break
-
-# # TESTING
-# if __name__ == "__main__":
-#     test_card = Card("Hearts", "Ace")
-#     print(test_card)  # Output: Ace of Hearts
-
-#     test_deck = Deck()
-#     print(test_deck)
-#     print(f"Total cards in deck: {len(test_deck.cards)}")  #
-#     print(test_deck.cards[0])
-
-#     player = Hand()
-#     player.add_card(test_deck.deal())
-
-#     for card in player.cards:
-#         print(card)
-
-#     player_chips = Chips()
-#     take_bet(player_chips)
