@@ -264,11 +264,10 @@ while True:
 
     # Inform Player of their chips total
     print(f"\nYou have {player_chips.total} chips.")
-    
+
     if player_chips.total <= 0:
         print("You're out of chips! Game over.")
         break
-
 
     # Ask to play again
     again = replay()
