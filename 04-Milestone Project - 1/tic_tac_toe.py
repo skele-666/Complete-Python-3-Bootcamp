@@ -28,7 +28,6 @@ def player_input():
 def place_marker(board, mark):
     choice = "wrong"
     acceptable_values = range(1, 10)
-    within_range = False
     spot_free = False
 
     if mark == "X":
